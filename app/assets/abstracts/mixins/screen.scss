@@ -1,0 +1,5 @@
+@mixin screen($_maxWidth) {
+  @media screen and (max-width: $_maxWidth) {
+    @content;
+  }
+}

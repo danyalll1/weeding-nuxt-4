@@ -1,0 +1,13 @@
+@mixin font(
+  $_fontSize,
+  $_lineHeight,
+  $_fontWeight: 400,
+  $_fontFamily: var(--font-primary),
+  $_letterSpacing: normal
+) {
+  font-weight: $_fontWeight;
+  font-size: $_fontSize;
+  line-height: $_lineHeight;
+  font-family: $_fontFamily;
+  letter-spacing: $_letterSpacing;
+}

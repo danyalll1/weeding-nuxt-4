@@ -1,0 +1,35 @@
+@use './reset.scss';
+@use './fonts/GreatVibes/GreatVibes.scss';
+@use './fonts/RobotosLab/RobotoSlab.scss';
+@use './abstracts/vars/fonts.scss';
+@use './abstracts/vars/breakPoints';
+@use './abstracts/mixins/font.scss' as *;
+@use './abstracts/mixins/breakPoints' as *;
+
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: 48px;
+  height: calc(100vh);
+  @include font(20px, 24px, 400)
+}
+
+body, #root, #app{
+  height: 100%;
+}
+
+.container{
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0 128px;
+  @include m-breakpoint{
+    padding: 0 64px;
+  }
+  @include s-breakpoint{
+    padding: 0 16px;
+  }
+}
+
+.parallax{
+  background: rgba(255,255,255, 0.3);
+  height: 100%;
+}
