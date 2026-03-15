@@ -1,3 +1,5 @@
+@use './breakPoints.scss' as *;
+
 @mixin font(
   $_fontSize,
   $_lineHeight,
@@ -10,4 +12,18 @@
   line-height: $_lineHeight;
   font-family: $_fontFamily;
   letter-spacing: $_letterSpacing;
+}
+
+@mixin titleFont{
+  @include font(64px, 68px, 400, var(--font-secondary));
+  @include mf-s-breakpoint{
+    @include font(124px, 124px, 400, var(--font-secondary));
+  }
+}
+
+@mixin titleFontSmall{
+  @include font(44px, 48px, 400, var(--font-secondary));
+  @include mf-s-breakpoint{
+    @include font(124px, 124px, 400, var(--font-secondary));
+  }
 }

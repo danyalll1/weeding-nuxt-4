@@ -1,4 +1,4 @@
-@use '../vars/breakpoints' as *;
+@use '../vars/breakPoints' as *;
 
 @mixin l-breakpoint {
   @media screen and (max-width: $l) {
@@ -20,6 +20,30 @@
 
 @mixin xs-breakpoint {
   @media screen and (max-width: $xs) {
+    @content;
+  }
+}
+
+@mixin mf-l-breakpoint {
+  @media screen and (min-width: $mf-l) {
+    @content;
+  }
+}
+
+@mixin mf-m-breakpoint {
+  @media screen and (min-width: $mf-m) {
+    @content;
+  }
+}
+
+@mixin mf-s-breakpoint {
+  @media screen and (min-width: $mf-s) {
+    @content;
+  }
+}
+
+@mixin mf-xs-breakpoint {
+  @media screen and (min-width: $mf-xs) {
     @content;
   }
 }
