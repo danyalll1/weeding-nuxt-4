@@ -2,7 +2,18 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  ssr: false,
+  ssr: false, // GitHub Pages = только статика
+
+  app: {
+    // имя репозитория на GitHub
+    baseURL: '/weeding-nuxt-4/',
+    buildAssetsDir: 'assets/',
+  },
+
+  nitro: {
+    preset: 'github-pages',
+  },
+
   modules: [
     '@pinia/nuxt',
   ],
