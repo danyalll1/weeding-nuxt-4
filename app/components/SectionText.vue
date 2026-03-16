@@ -16,13 +16,13 @@
     gap: 24px;
   }
 
-  p {
-    @include font(20px, 24px, 400);
+  
+  @include font(20px, 24px, 400);
 
-    @include mf-s-breakpoint {
-      @include font(24px, 28px, 400);
-    }
+  @include mf-s-breakpoint {
+    @include font(24px, 28px, 400);
   }
+  
 }
 </style>
 
