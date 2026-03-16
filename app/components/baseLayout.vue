@@ -2,18 +2,46 @@
 import backgroundVideo from "~/assets/video/videoDesk.MP4";
 import backgroundVideoMob from "~/assets/video/videoMob.MP4";
 
-
 const screenWidth = ref(0)
+const isVideoLoaded = ref(false)
+const videoRef = ref<HTMLVideoElement | null>(null)
+const vid2 = ref<HTMLVideoElement | null>(null)
+
+const handleVideoLoaded = () => {
+  isVideoLoaded.value = true
+}
+
 onMounted(() => {
   screenWidth.value = window.innerWidth
   window.addEventListener("resize", () => {
     screenWidth.value = window.innerWidth
+  })
+
+  // Ждём загрузки видео
+  nextTick(() => {
+    const currentVideo = screenWidth.value > 1024 ? videoRef.value : vid2.value
+    if (currentVideo) {
+      if (currentVideo.readyState >= 3) {
+        // Видео уже загружено
+        isVideoLoaded.value = true
+      } else {
+        currentVideo.addEventListener('canplay', handleVideoLoaded, { once: true })
+        currentVideo.addEventListener('loadeddata', handleVideoLoaded, { once: true })
+      }
+    }
   })
 })
 </script>
 <template>
   <div class="layout">
     <div class="layout__container">
+      <!-- Лоадер -->
+      <Transition name="loader-fade">
+        <div v-if="!isVideoLoaded" class="layout__loader">
+          <div class="layout__loader-spinner"></div>
+        </div>
+      </Transition>
+
       <video
           v-if="screenWidth > 1024"
           ref="videoRef"
@@ -24,6 +52,8 @@ onMounted(() => {
           playsinline
           loop
           preload="auto"
+          @canplay="handleVideoLoaded"
+          @loadeddata="handleVideoLoaded"
       ></video>
       <video
           v-else
@@ -35,8 +65,10 @@ onMounted(() => {
           playsinline
           loop
           preload="auto"
+          @canplay="handleVideoLoaded"
+          @loadeddata="handleVideoLoaded"
       ></video>
-      <div class="content ">
+      <div class="content" :class="{ 'content_visible': isVideoLoaded }">
         <div class="content__container container">
           <div
               class="content__sections-wrapper"
@@ -61,6 +93,28 @@ onMounted(() => {
     position: relative;
     overflow: hidden;
     background-color: #000;
+  }
+
+  &__loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  &__loader-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
   }
 
   &__background-video {
@@ -100,6 +154,12 @@ onMounted(() => {
   height: 100%;
   position: relative;
   z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s ease-in;
+
+  &_visible {
+    opacity: 1;
+  }
 
   &__container {
     position: relative;
@@ -127,5 +187,21 @@ onMounted(() => {
       opacity: 1;
     }
   }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-fade-enter-active,
+.loader-fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.loader-fade-enter-from,
+.loader-fade-leave-to {
+  opacity: 0;
 }
 </style>
