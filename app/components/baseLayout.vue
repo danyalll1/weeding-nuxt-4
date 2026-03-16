@@ -1,6 +1,6 @@
 <script setup>
-import backgroundVideo from "~/assets/video/videoDesk.mp4";
-import backgroundVideoMob from "~/assets/video/videoMob.mp4";
+import backgroundVideo from "~/assets/video/videoDesk.MP4";
+import backgroundVideoMob from "~/assets/video/videoMob.MP4";
 
 
 const screenWidth = ref(0)
