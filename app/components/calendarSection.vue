@@ -7,7 +7,7 @@ const { currentPage } = storeToRefs(useStore())
 <template>
   <div class="calendar">
     <AnimatedTitle 
-      :show="currentPage === 1" 
+      :show="currentPage === 5" 
       class="calendar__title"
       text="Даты"
     />

@@ -16,8 +16,8 @@ export function createTextAnimation() {
       splitInstance = null;
     }
 
-    // Разделяем текст на символы
-    splitInstance = SplitText.create(element, { type: "chars" });
+    // Разделяем текст на слова и символы, чтобы переносились только слова
+    splitInstance = SplitText.create(element, { type: "words,chars" });
 
     // Анимация появления: от начального состояния к текущему
     gsap.from(splitInstance.chars, {
@@ -36,7 +36,7 @@ export function createTextAnimation() {
     // Используем существующий split или создаем новый
     let split = splitInstance;
     if (!split) {
-      split = SplitText.create(element, { type: "chars" });
+      split = SplitText.create(element, { type: "words,chars" });
     }
 
     // Анимация ухода: от текущего состояния к конечному (обратная анимация)

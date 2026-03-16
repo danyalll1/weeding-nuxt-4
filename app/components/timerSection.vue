@@ -41,11 +41,13 @@ onMounted(() => {
 </script>
 <template>
  <div class="timer">
+   <span>
    <AnimatedTitle 
-     :show="currentPage === 2" 
+    :show="currentPage === 7" 
      class="timer__title"
-     text="Таймер"
+     text="Увидимся с вами через:"
    />
+   </span>
    <div class="timer__content">
      <div class="timer__item">
        <div class="timer__value">{{ String(days).padStart(2, '0') }}</div>
@@ -83,7 +85,8 @@ onMounted(() => {
   }
 
   &__title{
-    @include titleFont()
+    @include titleFont();
+    text-align: center;
   }
 
   &__content {

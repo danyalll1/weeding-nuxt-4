@@ -35,11 +35,14 @@ const updatePosition = () => {
     tooltipPosition.value = null
     return
   }
-  
+
   const rect = dayElement.value.getBoundingClientRect()
+  const scrollY = window.scrollY || window.pageYOffset
+  const scrollX = window.scrollX || window.pageXOffset
+
   tooltipPosition.value = {
-    top: rect.top - 12,
-    left: rect.left + rect.width / 2
+    top: rect.top + scrollY - 16,
+    left: rect.left + scrollX + rect.width / 2
   }
 }
 
@@ -48,7 +51,7 @@ const showTooltipWithDelay = (show: boolean) => {
     // Если секция в процессе перехода, ждем завершения анимации (0.5s)
     if (isTransitioning.value) {
       setTimeout(() => {
-        if (props.showTooltip && currentPage.value === 1) {
+        if (props.showTooltip && currentPage.value === 5) {
           shouldRenderTooltip.value = true
           nextTick(updatePosition)
         }
@@ -66,21 +69,21 @@ const showTooltipWithDelay = (show: boolean) => {
 
 // Отслеживаем переключение секции
 watch(currentPage, (newPage, oldPage) => {
-  // Если переключились на секцию календаря (page 1)
-  if (newPage === 1 && oldPage !== 1) {
+  // Если переключились на секцию календаря (page 5)
+  if (newPage === 5 && oldPage !== 5) {
     isTransitioning.value = true
     // Сбрасываем тултип во время перехода
     shouldRenderTooltip.value = false
     tooltipPosition.value = null
     
     // После завершения анимации разрешаем показ тултипа
-    setTimeout(() => {
-      isTransitioning.value = false
-      if (props.showTooltip && currentPage.value === 1) {
-        showTooltipWithDelay(true)
-      }
-    }, 600)
-  } else if (newPage !== 1) {
+      setTimeout(() => {
+        isTransitioning.value = false
+        if (props.showTooltip && currentPage.value === 5) {
+          showTooltipWithDelay(true)
+        }
+      }, 600)
+  } else if (newPage !== 5) {
     // Ушли с секции календаря
     isTransitioning.value = false
     shouldRenderTooltip.value = false
@@ -100,7 +103,7 @@ watch(() => props.showTooltip, (show) => {
 onMounted(() => {
   previousPage.value = currentPage.value
   isTransitioning.value = false
-  if (props.showTooltip && currentPage.value === 1) {
+  if (props.showTooltip && currentPage.value === 5) {
     showTooltipWithDelay(true)
   }
 })

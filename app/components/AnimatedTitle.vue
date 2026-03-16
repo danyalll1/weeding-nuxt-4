@@ -41,6 +41,7 @@ onMounted(() => {
 <template>
   <div :class="class">
     <div
+    class="animated-title__text"
       ref="titleElement"
       :class="{ 'animated-title__hidden': !show }"
     >
@@ -54,5 +55,10 @@ onMounted(() => {
   opacity: 0;
   pointer-events: none;
   visibility: visible;
+}
+
+.animated-title__text {
+  white-space: normal;
+  word-break: keep-all;
 }
 </style>

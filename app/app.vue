@@ -3,20 +3,38 @@ import BaseLayout from "~/components/baseLayout.vue";
 import CalendarSection from "~/components/calendarSection.vue";
 import HeroSection from "~/components/heroSection.vue";
 import TimerSection from "~/components/timerSection.vue";
+import InvitationSection from "~/components/invitationSection.vue";
+import LocationSection from "~/components/locationSection.vue";
+import DressCodeSection from "~/components/dressCodeSection.vue";
+import ScheduleSection from "~/components/scheduleSection.vue";
+import WishesSection from "~/components/wishesSection.vue";
 import useStore from "~/store";
 
 
 const sec1 = useTemplateRef('sec1')
 const sec2 = useTemplateRef('sec2')
 const sec3 = useTemplateRef('sec3')
+const sec4 = useTemplateRef('sec4')
+const sec5 = useTemplateRef('sec5')
+const sec6 = useTemplateRef('sec6')
+const sec7 = useTemplateRef('sec7')
+const sec8 = useTemplateRef('sec8')
 
 const { currentPage } = storeToRefs(useStore())
-const sections = [sec1, sec2, sec3]
+const sections = [sec1, sec2, sec3, sec4, sec5, sec6, sec7, sec8]
 const previousPage = ref(0)
 const scrollDirection = ref<'forward' | 'backward'>('forward')
 
+const isInsideMap = (target: EventTarget | null): boolean => {
+  if (!(target instanceof HTMLElement)) return false;
+  return !!target.closest('.location__map');
+};
+
 const wheelHandler = (e: WheelEvent): void => {
-  e.preventDefault() // Предотвращаем стандартный скролл
+  // Если скроллим внутри карты — не переключаем секции
+  if (isInsideMap(e.target)) return;
+
+  e.preventDefault(); // Предотвращаем стандартный скролл
   
   // Определяем направление прокрутки
   if (e.deltaY > 0) {
@@ -37,12 +55,14 @@ let touchStartX = 0
 let touchEndX = 0
 
 const touchStartHandler = (e: TouchEvent): void => {
+  if (isInsideMap(e.target)) return;
   if (e.touches && e.touches.length > 0 && e.touches[0]) {
     touchStartX = e.touches[0].clientX
   }
 }
 
 const touchEndHandler = (e: TouchEvent): void => {
+  if (isInsideMap(e.target)) return;
   if (e.changedTouches && e.changedTouches.length > 0 && e.changedTouches[0]) {
     touchEndX = e.changedTouches[0].clientX
     handleSwipe()
@@ -161,12 +181,32 @@ onUnmounted(() => {
       ref="sec1" 
       :class="['stack']"
     />
-    <CalendarSection 
+    <InvitationSection 
       ref="sec2" 
       :class="['stack']"
     />
-    <TimerSection 
+    <LocationSection 
       ref="sec3" 
+      :class="['stack']"
+    />
+    <DressCodeSection 
+      ref="sec4" 
+      :class="['stack']"
+    />
+    <ScheduleSection 
+      ref="sec5" 
+      :class="['stack']"
+    />
+    <CalendarSection 
+      ref="sec6" 
+      :class="['stack']"
+    />
+    <WishesSection 
+      ref="sec7" 
+      :class="['stack']"
+    />
+    <TimerSection 
+      ref="sec8" 
       :class="['stack']"
     />
   </BaseLayout>

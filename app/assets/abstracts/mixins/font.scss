@@ -15,7 +15,7 @@
 }
 
 @mixin titleFont{
-  @include font(64px, 68px, 400, var(--font-secondary));
+  @include font(64px, 72px, 400, var(--font-secondary));
   @include mf-s-breakpoint{
     @include font(124px, 124px, 400, var(--font-secondary));
   }

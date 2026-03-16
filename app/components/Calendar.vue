@@ -20,8 +20,8 @@ const daysInPreviousMonth = 31 // Июль имеет 31 день
 const activeDate = ref<number | null>(15)
 const tooltipDay = ref<number | null>(15)
 
-// Секция календаря активна когда currentPage === 1
-const isSectionActive = computed(() => currentPage.value === 1)
+// Секция календаря активна когда currentPage === 5
+const isSectionActive = computed(() => currentPage.value === 5)
 
 // Создаем массив дней месяца с датами из предыдущего месяца в начале
 const calendarDays = computed(() => {
@@ -68,7 +68,7 @@ const showTooltip = (dayItem: CalendarDay) => {
 }
 
 const getTooltipText = (day: number) => {
-  return day === 14 ? 'Загс' : 'Ресторан'
+  return day === 14 ? 'Загс' : 'Банкет'
 }
 </script>
 <template>
