@@ -23,6 +23,7 @@ onMounted(() => {
           muted
           playsinline
           loop
+          preload="auto"
       ></video>
       <video
           v-else
@@ -33,6 +34,7 @@ onMounted(() => {
           muted
           playsinline
           loop
+          preload="auto"
       ></video>
       <div class="content ">
         <div class="content__container container">
